@@ -58,6 +58,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            // Important!!! Bewtwen Use Routing ans USeAuth 
+            app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
             app.UseAuthorization();
 
