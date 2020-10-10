@@ -450,3 +450,4 @@ API/appsettings.json
 API/Data/Migrations/*
 API/Data/Migrations/
 API/datingapp.db
+client/src/environments/
