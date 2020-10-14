@@ -32,6 +32,13 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
+
+            var thing = _context.Users.Find(-1);
+            var thingToreturn = thing.ToString();
+            if (thing == null) return NotFound();
+            return Ok(thing);
+            /*
+            // This is when is not used a middleware error 
             try
             {
                 var thing = _context.Users.Find(-1);
@@ -43,7 +50,7 @@ namespace API.Controllers
             {
 
                 return StatusCode(500, "Error");
-            }
+            }*/
         }
 
         [HttpGet("bad-request")]
