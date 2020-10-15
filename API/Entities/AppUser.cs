@@ -26,9 +26,14 @@ namespace API.Entities
         public ICollection<Photo> Photos { get; set; }
         // One user have many photos
 
-        public int GetAge()
-        {
-             return DateOfBirth.CalculateAge();
-        }
+        // Enchange in SQL queries
+
+        // The reason is : When this mathos IMapper provider create a Bad Query that in not good for the performance
+        // For get the age We can update the IMapper Provicer on 
+
+        // public int GetAge()
+        // {
+        //      return DateOfBirth.CalculateAge();
+        // }
     }
 }
