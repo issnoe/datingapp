@@ -24,12 +24,12 @@ namespace API
         // Update Migrations
         // Seed Used 
         // Run host
-        public static async Task  Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
-            try 
+            try
             {
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
