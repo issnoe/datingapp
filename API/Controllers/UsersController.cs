@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
 using API.DTOs;
 using AutoMapper;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -33,9 +34,9 @@ namespace API.Controllers
             // Enchange in SQL queries
             var users = await _userRepository.GetMembersAsync();
 
-            return Ok(_mapper.Map<IEnumerable<MemberDto>>(users));
+            return Ok(users);
         }
-
+        //[HttpGet("id{username}")] If you can add more endpoint
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
@@ -43,7 +44,26 @@ namespace API.Controllers
             // return  _mapper.Map<MemberDto>(await _userRepository.GetUserByIdAsync(id));
 
             // Enchange in SQL queries
-            return _mapper.Map<MemberDto>(await _userRepository.GetMemberAsync(username));
+            return await _userRepository.GetMemberAsync(username);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        {
+            // Obtener el usuario por medio del TOKEN :) 
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Get User
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            // Merge bewten param memen¡ber and user in the database
+            _mapper.Map(memberUpdateDto, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }
