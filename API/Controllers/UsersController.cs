@@ -26,24 +26,24 @@ namespace API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
-        { 
+        {
             // Bad way to run queries 
             // var users = await _userRepository.GetUsersAsync();
-            
+
             // Enchange in SQL queries
             var users = await _userRepository.GetMembersAsync();
 
-            return Ok( _mapper.Map<IEnumerable<MemberDto>>(users));
+            return Ok(_mapper.Map<IEnumerable<MemberDto>>(users));
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<MemberDto>> GetUser(string name)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             // Bad way to run queries 
             // return  _mapper.Map<MemberDto>(await _userRepository.GetUserByIdAsync(id));
 
-             // Enchange in SQL queries
-           return  _mapper.Map<MemberDto>(await _userRepository.GetMemberAsync(name));
+            // Enchange in SQL queries
+            return _mapper.Map<MemberDto>(await _userRepository.GetMemberAsync(username));
         }
     }
 }
