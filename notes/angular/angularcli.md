@@ -63,10 +63,24 @@ ng g m share
 ## Services
 
 ng g s members
+ng g s busy
 
 ## Interceptors
 
 ng g interceptor jwt
+ng g interceptor loading
+
+## Route Guard
+
+Prvent Unsave
+ng g gueard prevent-unsave-changes
+
+issnoe:\_guards issnoe\$ ng g guard prevent-unsave-changes
+? Which interfaces would you like to implement?
+❯◯ CanActivate
+◯ CanActivateChild
+◉ CanDeactivate
+◯ CanLoad
 
 ## Angular Bootstrap Ngx
 
@@ -77,3 +91,6 @@ Tabs
 ## Dependencies
 
 ngx gallery
+
+@angular/cdk
+ngx-spinner
