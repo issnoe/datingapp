@@ -15,6 +15,7 @@ export class MembersService {
   constructor(private http: HttpClient) {}
 
   getMembers() {
+    //Of return like an Objesvable
     if (this.members.length > 0) return of(this.members);
     return this.http.get<Member[]>(this.baseUrl + 'users').pipe(
       map((members) => {
@@ -29,6 +30,7 @@ export class MembersService {
     if (member !== undefined) return of(member);
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
+
   updateMember(member: Member) {
     return this.http.put(this.baseUrl + 'users', member).pipe(
       map(() => {

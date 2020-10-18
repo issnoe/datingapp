@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class MemberListComponent implements OnInit {
   members$: Observable<Member[]>;
+
   constructor(private memberService: MembersService) {}
 
   ngOnInit(): void {
