@@ -67,3 +67,13 @@ ng g s members
 ## Interceptors
 
 ng g interceptor jwt
+
+## Angular Bootstrap Ngx
+
+Check the decumentation
+
+Tabs
+
+## Dependencies
+
+ngx gallery
