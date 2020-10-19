@@ -32,7 +32,8 @@ namespace API.Controllers
             {
                 UserName = register.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                KnownAs = register.Username.ToLower()
             };
 
             _context.Users.Add(user);
@@ -40,7 +41,8 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl = "https://res.cloudinary.com/nulldata/image/upload/v1603072655/f0ezlwxmohmdc9volyxf.png"
             };
         }
 
@@ -49,7 +51,8 @@ namespace API.Controllers
         {
 
             // Note : Para encontrar se puede usar FirstOrDefaultAsync o SingleOrDefaultAsync
-            var user = await _context.Users.Include(p => p.Photos)
+            var user = await _context.Users
+            .Include(p => p.Photos)
             .SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username);
 
             if (user == null) return Unauthorized("Invalid username");
@@ -64,12 +67,13 @@ namespace API.Controllers
                     return Unauthorized("Invalid username");
                 }
             }
-
+            var photoIsMain = user.Photos.FirstOrDefault(x => x.IsMain)?.Url;
             return new UserDto
             {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
+                // Get the main photo
+                PhotoUrl = photoIsMain != null ? photoIsMain : "https://res.cloudinary.com/nulldata/image/upload/v1603072655/f0ezlwxmohmdc9volyxf.png"
             };
         }
 

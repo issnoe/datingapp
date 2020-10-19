@@ -36,7 +36,8 @@ namespace API.Services
                 {
                     File = new FileDescription(file.FileName, stream),
                     // Create a image with 50*50  focus on face
-                    Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face", "center")
+                    Transformation = new Transformation().Height(500)
+                    .Width(500).Crop("fill").Gravity("face", "center")
                 };
                 // Use the API of Cloudinary
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);
