@@ -11,7 +11,8 @@ namespace API.Extensions
 {
     public static class ApplicationServiceExtencions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config){
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+        {
             // Auth midleware
             services.AddScoped<ITokenService, TokenServices>();
 
@@ -26,6 +27,12 @@ namespace API.Extensions
             {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+
+            // Cloudinary 
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+
+            // IPhoto
+            services.AddScoped<IPhotoService, PhotoService>();
 
             return services;
         }
