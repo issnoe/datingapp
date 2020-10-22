@@ -78,3 +78,5 @@ Persist data in services and
   <app-member-card [member]="member"></app-member-card>
 </div>
 ```
+
+// Partial<Somethins> is use to indicate it is optional
