@@ -23,6 +23,7 @@ namespace API.Helpers
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.TransformGenre()));
             CreateMap<Photo, PhotoDto>();
             CreateMap<MemberUpdateDto, AppUser>();
+            CreateMap<RegisterDto, AppUser>();
         }
     }
 }
