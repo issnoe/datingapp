@@ -34,6 +34,9 @@ namespace API.Extensions
             // IPhoto
             services.AddScoped<IPhotoService, PhotoService>();
 
+            // No se    
+            services.AddScoped<LogUserActivity>();
+
             return services;
         }
     }
