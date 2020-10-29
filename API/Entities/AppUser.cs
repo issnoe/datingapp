@@ -11,7 +11,7 @@ namespace API.Entities
 
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        
+
         // Calculate age
         public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
@@ -35,5 +35,11 @@ namespace API.Entities
         // {
         //      return DateOfBirth.CalculateAge();
         // }
+
+        // Relation many likes, from other users
+        public ICollection<UserLike> LikedByUsers { get; set; }
+
+        // Relation many likes, my likes
+        public ICollection<UserLike> LikedUsers { get; set; }
     }
 }

@@ -19,6 +19,9 @@ namespace API.Extensions
             // Repository Pattern 
             services.AddScoped<IUserRepository, UserRepository>();
 
+            // Repository Pattern 
+            services.AddScoped<ILikesRepository, LikesRepository>();
+
             // Auto Mapper Helps to Cast the Entity on a new Interface or works as a  DTO implementation
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
