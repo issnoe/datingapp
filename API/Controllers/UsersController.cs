@@ -13,6 +13,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using API.Extensions;
 using API.Services;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -30,14 +31,31 @@ namespace API.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
-        {
-            // Bad way to run queries 
-            // var users = await _userRepository.GetUsersAsync();
+        /*         [HttpGet]
+                public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsersOld()
+                {
+                    // Bad way to run queries 
+                    // var users = await _userRepository.GetUsersAsync();
 
-            // Enchange in SQL queries
-            var users = await _userRepository.GetMembersAsync();
+                    // Enchange in SQL queries
+                    var users = await _userRepository.GetMembersAsyncOld();
+
+                    return Ok(users);
+                } */
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            userParams.CurrentUsername = user.UserName;
+
+            if (string.IsNullOrEmpty(userParams.Gender))
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+
+            var users = await _userRepository.GetMembersAsync(userParams);
+
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize,
+                users.TotalCount, users.TotalPages);
 
             return Ok(users);
         }
