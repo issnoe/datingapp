@@ -31,17 +31,17 @@ namespace API.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsersOld()
-        {
-            // Bad way to run queries 
-            // var users = await _userRepository.GetUsersAsync();
+        /*         [HttpGet]
+                public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsersOld()
+                {
+                    // Bad way to run queries 
+                    // var users = await _userRepository.GetUsersAsync();
 
-            // Enchange in SQL queries
-            var users = await _userRepository.GetMembersAsyncOld();
+                    // Enchange in SQL queries
+                    var users = await _userRepository.GetMembersAsyncOld();
 
-            return Ok(users);
-        }
+                    return Ok(users);
+                } */
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
